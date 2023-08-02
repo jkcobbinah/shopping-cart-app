@@ -24,18 +24,28 @@ const cartListEl = document.getElementById("cart-list")
 //Event listener for the Add to Cart button
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
-    push(shoppingListDB, inputValue)
+    if(inputValue != ''){
+       push(shoppingListDB, inputValue)
+       resetInputField()
+    }
+    else{
+        alert("An empty text cannot be added to the shopping cart")
+    }
     
-    // alert(`${inputValue} has successfully been added to your shopping list`)
-    resetInputField()
+    
 })
 
 inputFieldEl.addEventListener("keypress", (e) => {
     if (e.key == "Enter"){
+        if(inputValue != ''){
         let inputValue = inputFieldEl.value
-    push(shoppingListDB, inputValue)
+        push(shoppingListDB, inputValue)
     
-    resetInputField()
+        resetInputField()
+        }
+        else{
+         alert("An empty text cannot be added to the shopping cart")
+        }
     }
 })
 
@@ -46,7 +56,7 @@ onValue(shoppingListDB, (snapshot) => {
     
     
         clearCartList()
-
+        
         for (let i = 0; i < itemsArray.length; i++) {
             renderCartList(itemsArray[i]);
         }  
